@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-5">
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <h2>Welcome to User Management</h2>
+        <p>Use the buttons below to navigate.</p>
+        <button class="btn btn-primary" onclick="showSection('registerPage')">Register a User</button>
+        <button class="btn btn-success" onclick="showSection('viewPage')">View Registered Users</button>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="registerPage" style="display: none;">
+        <h2>User Registration</h2>
+        <form id="registrationForm">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contact</label>
+                <input type="tel" id="contact" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea id="address" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <button class="btn btn-secondary" type="button" onclick="showSection('homePage')">Back to Home</button>
+        </form>
+    </div>
+
+    <!-- View Users Page -->
+    <div id="viewPage" style="display: none;">
+        <h2>Registered Users</h2>
+        <button id="showUsers" class="btn btn-primary">View Registered Users</button>
+        <button class="btn btn-secondary" onclick="showSection('homePage')">Back to Home</button>
+        
+        <table class="table table-striped table-bordered mt-3" id="usersTable" style="display: none;">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody id="usersList"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("registerPage").style.display = "none";
+            document.getElementById("viewPage").style.display = "none";
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const registrationForm = document.getElementById("registrationForm");
+            const usersTable = document.getElementById("usersTable");
+            const usersList = document.getElementById("usersList");
+            const showUsersBtn = document.getElementById("showUsers");
+
+            // Handle Form Submission
+            if (registrationForm) {
+                registrationForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    
+                    let name = document.getElementById("name").value;
+                    let email = document.getElementById("email").value;
+                    let contact = document.getElementById("contact").value;
+                    let address = document.getElementById("address").value;
+
+                    let user = { name, email, contact, address };
+                    let users = JSON.parse(localStorage.getItem("users")) || [];
+                    users.push(user);
+                    localStorage.setItem("users", JSON.stringify(users));
+
+                    registrationForm.reset();
+                    alert("User Registered Successfully!");
+                });
+            }
+
+            // Display Users in the Table
+            if (showUsersBtn) {
+                showUsersBtn.addEventListener("click", function () {
+                    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+                    if (users.length === 0) {
+                        alert("No registered users found.");
+                        return;
+                    }
+
+                    usersList.innerHTML = "";
+                    users.forEach(user => {
+                        let row = `<tr>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.contact}</td>
+                            <td>${user.address}</td>
+                        </tr>`;
+                        usersList.innerHTML += row;
+                    });
+
+                    usersTable.style.display = "table";
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

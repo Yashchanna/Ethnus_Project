@@ -1,0 +1,44 @@
+<html>
+ <head>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <style>
+   @keyframes move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-train {
+            animation: move 5s linear infinite;
+        }
+  </style>
+ </head>
+ <body class="flex flex-col items-center justify-center min-h-screen bg-white">
+  <div class="relative">
+   <img alt="A cartoon train with smoke coming out of its chimney" class="animate-train" height="150" src="https://storage.googleapis.com/a1aa/image/6RKrAXGXorwerlNC-Ue3MJvNEnaDS_3SqKeHOI0CCOM.jpg" width="300"/>
+  </div>
+  <p class="mt-4 text-xl font-bold text-blue-900">
+   Click the following buttons to handle animation
+  </p>
+  <div class="mt-2">
+   <button class="px-4 py-2 mr-2 text-sm font-medium text-black bg-gray-200 border border-gray-300 rounded" id="startBtn">
+    Start
+   </button>
+   <button class="px-4 py-2 text-sm font-medium text-black bg-gray-200 border border-gray-300 rounded" id="stopBtn">
+    Stop
+   </button>
+  </div>
+  <script>
+   const train = document.querySelector('img');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+
+        startBtn.addEventListener('click', () => {
+            train.classList.add('animate-train');
+        });
+
+        stopBtn.addEventListener('click', () => {
+            train.classList.remove('animate-train');
+        });
+  </script>
+ </body>
+</html>

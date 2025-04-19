@@ -1,0 +1,27 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function showDate() {
+            const date = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').innerText = date.toLocaleDateString('en-GB', options).replace(/ /g, '/');
+        }
+
+        function showTime() {
+            const date = new Date();
+            document.getElementById('time').innerText = date.toString();
+        }
+    </script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="mb-4">
+        <button onclick="showDate()" class="px-4 py-2 border border-gray-400 rounded">show date</button>
+        <div id="date" class="mt-2"></div>
+    </div>
+    <div>
+        <button onclick="showTime()" class="px-4 py-2 border border-gray-400 rounded">show Time</button>
+        <div id="time" class="mt-2"></div>
+    </div>
+</body>
+</html>
