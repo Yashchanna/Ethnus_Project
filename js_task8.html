@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, pink, lightblue);
+            text-align: center;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        input, select, textarea {
+            width: 90%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            text-align: left;
+        }
+        .btn {
+            background: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form onsubmit="return validateForm()">
+            <label>First Name</label>
+            <input type="text" id="fname"><br>
+            <span id="fnameError" class="error"></span>
+            
+            <label>Last Name</label>
+            <input type="text" id="lname"><br>
+            <span id="lnameError" class="error"></span>
+            
+            <label>Email</label>
+            <input type="email" id="email"><br>
+            <span id="emailError" class="error"></span>
+            
+            <label>Password</label>
+            <input type="password" id="password"><br>
+            <span id="passwordError" class="error"></span>
+            
+            <label>Re-enter Password</label>
+            <input type="password" id="repassword"><br>
+            <span id="repasswordError" class="error"></span>
+            
+            <label>Gender</label><br>
+            <input type="radio" name="gender" value="Male"> Male
+            <input type="radio" name="gender" value="Female"> Female<br>
+            
+            <label>Age</label>
+            <input type="number" id="age"><br>
+            <span id="ageError" class="error"></span>
+            
+            <label>Phone Number</label>
+            <input type="text" id="phone"><br>
+            <span id="phoneError" class="error"></span>
+            
+            <label>Address</label><br>
+            <textarea id="address"></textarea><br>
+            <span id="addressError" class="error"></span>
+            
+            <label>State</label>
+            <input type="text" id="state"><br>
+            <span id="stateError" class="error"></span>
+            
+            <label>Country</label>
+            <select id="country">
+                <option value="">Choose your country</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+            </select><br>
+            <span id="countryError" class="error"></span>
+            
+            <label>Languages Known:</label><br>
+            <input type="checkbox"> English
+            <input type="checkbox"> Kannada
+            <input type="checkbox"> Hindi
+            <input type="checkbox"> Telugu<br>
+            
+            <input type="checkbox"> Hereby I declare all the given details are true<br>
+            
+            <button type="submit" class="btn">REGISTER</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            document.querySelectorAll('.error').forEach(e => e.innerHTML = "");
+            
+            if (document.getElementById('fname').value === "") {
+                document.getElementById('fnameError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('lname').value === "") {
+                document.getElementById('lnameError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('email').value === "") {
+                document.getElementById('emailError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('password').value.length < 6) {
+                document.getElementById('passwordError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('password').value !== document.getElementById('repassword').value) {
+                document.getElementById('repasswordError').innerHTML = "POOR OR MISMATCH";
+                isValid = false;
+            }
+            if (document.getElementById('age').value === "") {
+                document.getElementById('ageError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('phone').value.length !== 10) {
+                document.getElementById('phoneError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('address').value === "") {
+                document.getElementById('addressError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('state').value === "") {
+                document.getElementById('stateError').innerHTML = "POOR";
+                isValid = false;
+            }
+            if (document.getElementById('country').value === "") {
+                document.getElementById('countryError').innerHTML = "POOR";
+                isValid = false;
+            }
+            return isValid;
+        }
+    </script>
+</body>
+</html>
